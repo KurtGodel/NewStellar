@@ -3,20 +3,30 @@ var newPos : Vector3;               // The position the camera is trying to reac
 var speed: float = 3;
 
 function Update(){
-	if (Input.GetKeyDown (KeyCode.UpArrow)) {
+	if (Input.GetKey (KeyCode.UpArrow)) {
 		var v = gameObject.transform.forward;
 		move(v);
 	}
 	if(Input.GetKeyDown(KeyCode.E)){
-		var b =gameObject.transform.position;
-		b.z -= 800;
-		b.x = 0;
-		b.y = 0;
-		move(b);
+		transform.position = Vector3(0, 0, 500);
+		
+	}
+	if(Input.GetKeyDown(KeyCode.R)){
+		transform.position = Vector3(0, 0, 1500);
+		
+	}
+	if (Input.GetKey (KeyCode.W)) {
+		var e = gameObject.transform.forward;
+		moveslow(e);
 	}
 }
 
-
+function moveslow(direction : Vector3) {
+	var l = 2;
+	transform.position.x += l * direction.x;
+	transform.position.y += l * direction.y;
+	transform.position.z += l * direction.z;
+}
 
 function move(direction : Vector3) {
 	var k = 10;
