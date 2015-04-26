@@ -1,17 +1,44 @@
-﻿var smooth : float = 1.5f; // The relative speed at which the camera will catch up.
+﻿
+var smooth : float = 1.5f; // The relative speed at which the camera will catch up.
 var newPos : Vector3;               // The position the camera is trying to reach.
 var speed: float;
+var planets : GameObject[];
+var centerOfPlanets : Array[];
 
-var centerOfPlanets = new Array(9);
-for (var i=0; i < centerOfPlanets.length; i++){
-	var temp = [];
-	for (var j=0; j<4; j++){
-		temp[j] = 0;
-	}
-	centerOfPlanets[i] = temp;
+function Start() {
+	planets = [GameObject.Find("Mercury"), GameObject.Find("Venus"), GameObject.Find("Earth II"), GameObject.Find("Mars"), GameObject.Find("Jupiter"), GameObject.Find("Saturn"), GameObject.Find("Uranus"), GameObject.Find("Neptune"), GameObject.Find("Sun")];
 }
 
-	 
+function Update() {
+	for (var i = 0; planets.length > i; i++) {
+		print(planets[i]);
+		centerOfPlanets[i] = [planets[i].GetComponent.<Mesh>().bounds.center.x, planets[i].GetComponent.<Mesh>().bounds.center.y, planets[i].GetComponent.<Mesh>().bounds.center.z, planets[i].GetComponent.<Mesh>().bounds.size / 2];
+	}
+
+	var rightHand = GameObject.Find("RightHand");
+	var leftHand = GameObject.Find("LeftHand");
+	var forwardWarp = false;
+	var backwardWarp = false;
+	var k = 3;
+	if (rightHand != null && leftHand != null) {
+		if(angle(leftHand.palmVelocity, rightHand.palmVelocity) < 0){
+			if(leftHand.palmVelocity.x > 30 && rightHand.palmVelocity.x < -30){
+				backwardWarp = true;
+			}
+			if(rightHand.palmVelocity.x > 30 && leftHand.palmVelocity.x < -30){
+				forwardWarp = true;
+			}
+		}
+		
+		var vectorWeUse = gameObject.transform.rotation.Normalize();
+		if(forwardWarp) {
+			warp(k * (rightHand.palmPosition - leftHand.palmPosition).magnitude * (vectorWeUse));
+		}
+		if(backwardWarp){
+			warp(k * -1 * (vectorWeUse));
+		}
+	}
+}
 
 function move(direction : Vector3) {
 	var index = -1;
@@ -110,5 +137,3 @@ function magnitude(v: Vector3){
 function angle(a: Vector3, b:Vector3){
 	return Mathf.Acos(dotproduct(a, b)/(magnitude(a) * magnitude(b)));
 }
-
-

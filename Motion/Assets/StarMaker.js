@@ -11,7 +11,15 @@ function Start () {
 		var z = r*Mathf.Sin(theta)*Mathf.Sin(phi);
 		var pos = Vector3(x, y, z);
 		var starSize = 3;
-		ps.Emit(pos, Vector3(0, 0, 0), starSize, Mathf.Infinity, Color32(255, 0, 0, 255));
+		
+		var rand = Random.value;
+		if(rand < 0.3) {
+			ps.Emit(pos, Vector3(0, 0, 0), starSize, Mathf.Infinity, Color32(255, 255, 255, 255));
+		}
+		else {
+			ps.Emit(pos, Vector3(0, 0, 0), starSize, Mathf.Infinity, Color32(255, 255, 255, 255));
+		}
+		
 	}
 }
 
