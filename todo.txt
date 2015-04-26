@@ -1,0 +1,19 @@
+1. read star data to unity project (hook this up with StarMaker.js)
+2. remove cubes and spheres form unity project
+3. get planet models
+4. add planet models in unity project
+
+-- STOP --
+
+We have to talk about how we want this project to look.
+
+1. Incorporate Leap Motion gestures to move around & zoom in app
+2. Incorporate motion of user to move around app
+
+-- BONUS FEATURES --
+
+1. music
+2. options
+3. moving planets
+
+
