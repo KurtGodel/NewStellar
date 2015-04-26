@@ -17,14 +17,10 @@ function Start () {
 	var starSizes = new float[starPositions.length];
 	var color = 0;
 	
-	print("A");
-	
 	try {
         // Create an instance of StreamReader to read from a file.
-        print("B");
         print(filePath);
         var sr = new StreamReader(filePath+"");
-        print("C");
         // Read and display lines from the file until the end of the file is reached.
         var line = sr.ReadLine();
         line = sr.ReadLine();
@@ -36,19 +32,19 @@ function Start () {
         	
         	color = parseFloat(lineValues[10]);
         	if (color == 0) {
-    			starColors[j] = Color32(255, 155, 176, 255);
+    			starColors[j] = Color32(155, 176, 255, 255);
 			} else if (color == 1) {
-    			starColors[j] = Color32(255, 170, 191, 255);
+    			starColors[j] = Color32(170, 191, 255, 255);
 			} else if (color == 2) {
-    			starColors[j] = Color32(255, 202, 215, 255);
+    			starColors[j] = Color32(202, 215, 255, 255);
 			} else if (color == 3) {
-    			starColors[j] = Color32(255, 248, 247, 255);
+    			starColors[j] = Color32(248, 247, 255, 255);
 			} else if (color == 4) {
-    			starColors[j] = Color32(255, 255, 244, 234);
+    			starColors[j] = Color32(255, 244, 234, 255);
 			} else if (color == 5) {
-    			starColors[j] = Color32(255, 255, 210, 161);
+    			starColors[j] = Color32(255, 210, 161, 255);
 			} else {
-    			starColors[j] = Color32(255, 255, 204, 111);
+    			starColors[j] = Color32(255, 204, 111, 255);
 			}
 			
 			
@@ -69,12 +65,6 @@ function Start () {
 	for(i=0; i<500; i++) {
 		ps.Emit(starPositions[i], Vector3(0, 0, 0), starSizes[i], Mathf.Infinity, starColors[i]);
 	}
-	
-	print("X");
-	print(starPositions[5]);
-	print(starColors[5]);
-	print(starSizes[5]);
-		
 	
 	particles = new ParticleSystem.Particle[ps.maxParticles];
 }
