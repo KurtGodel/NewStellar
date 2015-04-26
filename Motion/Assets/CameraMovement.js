@@ -1,68 +1,30 @@
-﻿
-var smooth : float = 1.5f; // The relative speed at which the camera will catch up.
+﻿var smooth : float = 1.5f; // The relative speed at which the camera will catch up.
 var newPos : Vector3;               // The position the camera is trying to reach.
-var speed: float;
-var planets : GameObject[];
-var centerOfPlanets : Array[];
+var speed: float = 3;
 
-function Start() {
-	planets = [GameObject.Find("Mercury"), GameObject.Find("Venus"), GameObject.Find("Earth II"), GameObject.Find("Mars"), GameObject.Find("Jupiter"), GameObject.Find("Saturn"), GameObject.Find("Uranus"), GameObject.Find("Neptune"), GameObject.Find("Sun")];
-}
-
-function Update() {
-	for (var i = 0; planets.length > i; i++) {
-		print(planets[i]);
-		centerOfPlanets[i] = [planets[i].GetComponent.<Mesh>().bounds.center.x, planets[i].GetComponent.<Mesh>().bounds.center.y, planets[i].GetComponent.<Mesh>().bounds.center.z, planets[i].GetComponent.<Mesh>().bounds.size / 2];
+function Update(){
+	if (Input.GetKeyDown (KeyCode.UpArrow)) {
+		var v = gameObject.transform.forward;
+		move(v);
 	}
-
-	var rightHand = GameObject.Find("RightHand");
-	var leftHand = GameObject.Find("LeftHand");
-	var forwardWarp = false;
-	var backwardWarp = false;
-	var k = 3;
-	if (rightHand != null && leftHand != null) {
-		if(angle(leftHand.palmVelocity, rightHand.palmVelocity) < 0){
-			if(leftHand.palmVelocity.x > 30 && rightHand.palmVelocity.x < -30){
-				backwardWarp = true;
-			}
-			if(rightHand.palmVelocity.x > 30 && leftHand.palmVelocity.x < -30){
-				forwardWarp = true;
-			}
-		}
-		
-		var vectorWeUse = gameObject.transform.rotation.Normalize();
-		if(forwardWarp) {
-			warp(k * (rightHand.palmPosition - leftHand.palmPosition).magnitude * (vectorWeUse));
-		}
-		if(backwardWarp){
-			warp(k * -1 * (vectorWeUse));
-		}
+	if(Input.GetKeyDown(KeyCode.E)){
+		var b =gameObject.transform.position;
+		b.z -= 800;
+		b.x = 0;
+		b.y = 0;
+		move(b);
 	}
 }
+
+
 
 function move(direction : Vector3) {
-	var index = -1;
-	var minD = 1e100;
-	var planet = new Array(4);
-	for(var i=0; i<centerOfPlanets.length; i++) {
-		planet = centerOfPlanets[i];
-		var vector: Vector3;
-		vector.x = planet[0];
-		vector.y = planet[1];
-		vector.z = planet[2];
-		var d = dist(vector, gameObject.transform.position);
-		if(d < minD) {
-			minD = d;
-			index = i;
-		}
-	}
-	var k = 1;
-	planet = centerOfPlanets[index];
-	gameObject.transform.position.x += k * planet[3] * direction.x; //why index 3 each time??
-	gameObject.transform.position.y += k * planet[3] * direction.y;
-	gameObject.transform.position.z += k * planet[3] * direction.z;
+	var k = 10;
+	transform.position.x += k * direction.x;
+	transform.position.y += k * direction.y;
+	transform.position.z += k * direction.z;
 }
-
+/*
 function warp(direction: Vector3){
 	var minShortDist = 10e100;
 	var index = -1;
@@ -137,3 +99,5 @@ function magnitude(v: Vector3){
 function angle(a: Vector3, b:Vector3){
 	return Mathf.Acos(dotproduct(a, b)/(magnitude(a) * magnitude(b)));
 }
+*/
+
